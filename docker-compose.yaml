@@ -4,3 +4,19 @@ services:
     image: "redis/redis-stack-server:latest"
     ports:
       - "6379:6379"
+    volumes:
+      - ./config/redis-stack.conf:/redis-stack.conf
+      - ./rdbs:/data
+    restart: unless-stopped
+    networks:
+      - ournetwork
+
+volumes:
+  rdbs:
+    driver: local
+
+networks:
+  ournetwork:
+    name: ournetwork
+    external: true
+    driver: bridge
